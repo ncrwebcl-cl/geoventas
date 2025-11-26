@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geo Ventas - Plataforma de Negocios Locales</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #27AE60;
@@ -111,8 +112,9 @@
         }
 
         .subtitle {
-            color: var(--text-medium);
+            color: var(--text-dark); /* Cambiado para mejor visibilidad */
             font-size: 16px;
+            font-weight: 500; /* Añadido para mejor legibilidad */
         }
 
         .btn {
@@ -216,21 +218,23 @@
             background: rgba(255,255,255,0.3);
         }
 
+        /* MODIFICADO: Filtros más compactos y transparentes */
         .filters {
-            background: white;
-            padding: 16px;
+            background: rgba(255, 255, 255, 0.85); /* Más transparente */
+            padding: 12px 16px; /* Reducido el padding */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             position: sticky;
             top: 68px;
             z-index: 90;
+            backdrop-filter: blur(10px); /* Efecto de vidrio */
         }
 
         .category-buttons {
             display: flex;
-            gap: 8px;
+            gap: 6px; /* Reducido el espacio entre botones */
             overflow-x: auto;
-            padding: 8px 0;
-            margin-bottom: 16px;
+            padding: 6px 0; /* Reducido el padding */
+            margin-bottom: 12px; /* Reducido el margen inferior */
             scrollbar-width: none;
         }
 
@@ -239,7 +243,7 @@
         }
 
         .category-btn {
-            padding: 10px 16px;
+            padding: 8px 12px; /* Reducido el padding */
             border: none;
             border-radius: 20px;
             background: var(--bg-light);
@@ -251,7 +255,8 @@
             flex-shrink: 0;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px; /* Reducido el espacio entre ícono y texto */
+            font-size: 14px; /* Texto más pequeño */
         }
 
         .category-btn.active {
@@ -261,8 +266,8 @@
         }
 
         .category-btn img {
-            width: 20px;
-            height: 20px;
+            width: 18px; /* Imágenes más pequeñas */
+            height: 18px;
             object-fit: cover;
             border-radius: 4px;
         }
@@ -270,7 +275,7 @@
         .radius-control {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px; /* Reducido el espacio */
         }
 
         .radius-control input {
@@ -285,8 +290,8 @@
 
         .radius-control input::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 18px; /* Control deslizante más pequeño */
+            height: 18px;
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
@@ -296,8 +301,8 @@
         .radius-value {
             font-weight: 600;
             color: var(--primary);
-            min-width: 60px;
-            font-size: 14px;
+            min-width: 50px; /* Reducido el ancho mínimo */
+            font-size: 13px; /* Texto más pequeño */
         }
 
         .vendors-list {
@@ -709,13 +714,13 @@
 
         /* NUEVO: Estilos para la barra de búsqueda */
         .search-container {
-            margin-bottom: 16px;
+            margin-bottom: 12px; /* Reducido el margen inferior */
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            padding: 12px 16px 12px 44px;
+            padding: 10px 16px 10px 44px; /* Reducido el padding vertical */
             border: 2px solid #e0e0e0;
             border-radius: var(--radius-small);
             font-size: 16px;
@@ -778,6 +783,15 @@
             color: var(--text-light);
             margin-bottom: 12px;
         }
+
+        /* NUEVO: Estilo para el texto de desarrolladores */
+        .developers-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -814,7 +828,7 @@
     <!-- Footer principal MODIFICADO - más pequeño y transparente -->
     <div class="main-footer">
         <img src="GEOVENTAS.png" alt="Geo Ventas" class="footer-logo">
-        <p>Desarrollado por: Norbey Cuervo Ramirez y Petrona Calani</p>
+        <p class="developers-text">Desarrollado por: Norbey Cuervo Ramirez y Petrona Calani</p>
     </div>
 
     <!-- Pantalla de Registro -->
@@ -910,7 +924,7 @@
                     </span>
                 </div>
                 
-                <!-- NUEVO: Barra de búsqueda -->
+                <!-- Barra de búsqueda -->
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre, producto o dueño..." onkeyup="filterVendors()">
@@ -918,7 +932,7 @@
                 
                 <div class="category-buttons">
                     <button class="category-btn active" onclick="filterCategory('todos')">
-                                        Todos
+                        Todos
                     </button>
                     <button class="category-btn" onclick="filterCategory('comida')">
                         <img src="completo-700x433.png" alt="Comida">
