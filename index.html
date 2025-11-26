@@ -736,160 +736,6 @@
             transform: translateY(-50%);
             color: var(--text-light);
         }
-
-        /* NUEVO: Estilos para subir imágenes */
-        .image-upload-container {
-            margin-bottom: 16px;
-        }
-
-        .image-preview {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed #e0e0e0;
-            border-radius: var(--radius-small);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            cursor: pointer;
-            transition: var(--transition);
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .image-preview:hover {
-            border-color: var(--primary);
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .image-preview-placeholder {
-            text-align: center;
-            color: var(--text-light);
-        }
-
-        .image-preview-placeholder i {
-            font-size: 48px;
-            margin-bottom: 8px;
-            color: var(--primary-light);
-        }
-
-        .upload-btn {
-            background: var(--bg-light);
-            color: var(--text-medium);
-            padding: 10px 16px;
-            border: none;
-            border-radius: var(--radius-small);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        .upload-btn:hover {
-            background: #f0f0f0;
-        }
-
-        /* NUEVO: Estilos para el panel de administración de vendedor */
-        .vendor-management {
-            margin-top: 24px;
-        }
-
-        .management-section {
-            background: var(--bg-light);
-            border-radius: var(--radius-small);
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .product-list {
-            margin-top: 16px;
-        }
-
-        .product-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: white;
-            border-radius: var(--radius-small);
-            margin-bottom: 8px;
-        }
-
-        .product-image {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--radius-small);
-            object-fit: cover;
-        }
-
-        .product-details {
-            flex: 1;
-        }
-
-        .product-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .product-description {
-            font-size: 14px;
-            color: var(--text-medium);
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: var(--radius-small);
-            cursor: pointer;
-            font-size: 12px;
-            transition: var(--transition);
-        }
-
-        .edit-btn {
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--accent);
-        }
-
-        .delete-btn {
-            background: rgba(231, 76, 60, 0.1);
-            color: var(--error);
-        }
-
-        /* NUEVO: Estilos para el perfil de comprador */
-        .profile-info {
-            margin-bottom: 24px;
-        }
-
-        .info-card {
-            background: var(--bg-light);
-            border-radius: var(--radius-small);
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-
-        .info-label {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 4px;
-        }
-
-        .info-value {
-            font-weight: 600;
-            font-size: 16px;
-        }
     </style>
 </head>
 <body>
@@ -912,12 +758,12 @@
                     <i class="fas fa-search"></i> Buscar Negocios Cercanos
                 </button>
 
-                <button class="btn btn-accent" onclick="registrarVendedorRapido()">
-                    <i class="fas fa-store"></i> Soy Vendedor (Registro Rápido)
+                <button class="btn btn-accent" onclick="showScreen('vendedor')">
+                    <i class="fas fa-store"></i> Soy Vendedor
                 </button>
 
-                <button class="btn btn-secondary" onclick="showScreen('registroComprador')">
-                    <i class="fas fa-user-plus"></i> Registrarse como Comprador
+                <button class="btn btn-secondary" onclick="showScreen('registro')">
+                    <i class="fas fa-user-plus"></i> Registrarse
                 </button>
             </div>
         </div>
@@ -929,52 +775,48 @@
         <p>Desarrollado por N. Cuervo y P. Calani</p>
     </div>
 
-    <!-- Pantalla de Registro de Comprador -->
-    <div id="registroCompradorScreen" style="display: none;">
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <h2><i class="fas fa-user-plus"></i> Registro de Comprador</h2>
-                <button class="btn-exit" onclick="showScreen('welcome')">
-                    <i class="fas fa-sign-out-alt"></i> Salir
-                </button>
-            </div>
-        </div>
-
+    <!-- Pantalla de Registro -->
+    <div id="registroScreen" style="display: none;">
         <div class="container">
             <div class="card">
-                <h1 style="margin-bottom: 24px; text-align: center;">Registro de Comprador</h1>
+                <h1 style="margin-bottom: 24px; text-align: center;">Registro de Usuario</h1>
 
                 <div class="form-group">
-                    <label class="form-label">Nombre Completo</label>
-                    <input type="text" id="nombreComprador" class="form-input" placeholder="Ej: Juan Pérez">
+                    <label class="form-label">Tipo de Usuario</label>
+                    <select id="tipoUsuario" class="form-select">
+                        <option value="">Seleccionar...</option>
+                        <option value="comprador">Comprador</option>
+                        <option value="vendedor">Vendedor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nombre Completo / Nombre del Negocio</label>
+                    <input type="text" id="nombreUsuario" class="form-input" placeholder="Ej: Juan Pérez / Completos Don Juan">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Teléfono de Contacto</label>
-                    <input type="tel" id="telefonoComprador" class="form-input" placeholder="+56912345678">
+                    <input type="tel" id="telefonoUsuario" class="form-input" placeholder="+56912345678">
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Dirección (Opcional)</label>
-                    <input type="text" id="direccionComprador" class="form-input" placeholder="Ej: Calle Principal 123">
-                </div>
+                <div id="vendedorFields" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Descripción de Productos</label>
+                        <textarea id="descripcionProductos" class="form-textarea" placeholder="Ej: Vendo completos, hot dogs y bebidas"></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Intereses (Opcional)</label>
-                    <select id="interesesComprador" class="form-select" multiple>
-                        <option value="comida">Comida</option>
-                        <option value="artesanias">Artesanías</option>
-                        <option value="alimentos">Frutas/Verduras</option>
-                        <option value="ropa">Ropa</option>
-                    </select>
-                    <small style="color: var(--text-light); font-size: 12px;">Mantén presionada la tecla Ctrl para seleccionar múltiples opciones</small>
+                    <div class="form-group">
+                        <label class="form-label">Horario de Atención</label>
+                        <input type="text" id="horarioAtencion" class="form-input" placeholder="Ej: 11:00 - 15:00">
+                    </div>
                 </div>
 
                 <div class="form-buttons">
                     <button class="btn btn-secondary" style="flex: 1;" onclick="showScreen('welcome')">
                         Cancelar
                     </button>
-                    <button class="btn btn-primary" style="flex: 1;" onclick="registrarComprador()">
+                    <button class="btn btn-primary" style="flex: 1;" onclick="registrarUsuario()">
                         Registrarse
                     </button>
                 </div>
@@ -1001,7 +843,7 @@
                     </span>
                 </div>
                 
-                <!-- Barra de búsqueda -->
+                <!-- NUEVO: Barra de búsqueda -->
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre, producto o dueño..." onkeyup="filterVendors()">
@@ -1067,9 +909,9 @@
                 <h2 style="margin-bottom: 24px; text-align: center;">Mi Negocio</h2>
                 
                 <div style="margin-bottom: 32px;">
-                    <!-- Imagen del negocio -->
+                    <!-- MODIFICACIÓN: Cambiar imagen a "Mi Negocio.png" -->
                     <div class="vendor-image">
-                        <img src="Mi Negocio.png" alt="Mi Negocio" id="vendorBusinessImage">
+                        <img src="Mi Negocio.png" alt="Mi Negocio">
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
@@ -1079,11 +921,11 @@
                             </h3>
                             <div style="margin-bottom: 12px;">
                                 <div style="font-size: 14px; color: var(--text-light);">Nombre del Negocio</div>
-                                <div style="font-weight: 600; font-size: 18px;" id="vendorBusinessName">Mi Negocio Local</div>
+                                <div style="font-weight: 600; font-size: 18px;">Mi Negocio Local</div>
                             </div>
                             <div style="margin-bottom: 12px;">
                                 <div style="font-size: 14px; color: var(--text-light);">Categoría</div>
-                                <div style="font-weight: 600;" id="vendorCategory">Comida Rápida</div>
+                                <div style="font-weight: 600;">Comida Rápida</div>
                             </div>
                             <div>
                                 <div style="font-size: 14px; color: var(--text-light);">Estado</div>
@@ -1115,56 +957,6 @@
                     </div>
                 </div>
 
-                <!-- NUEVO: Gestión de productos -->
-                <div class="vendor-management">
-                    <h3 style="font-weight: 600; color: var(--text-dark); margin-bottom: 16px;">
-                        <i class="fas fa-boxes"></i> Gestión de Productos
-                    </h3>
-                    
-                    <div class="management-section">
-                        <h4 style="font-weight: 600; color: var(--text-medium); margin-bottom: 12px;">
-                            <i class="fas fa-plus-circle"></i> Agregar Nuevo Producto
-                        </h4>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Nombre del Producto</label>
-                            <input type="text" id="productName" class="form-input" placeholder="Ej: Completo Italiano">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Descripción</label>
-                            <textarea id="productDescription" class="form-textarea" placeholder="Ej: Pan, vienesa, palta, tomate, mayonesa..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Precio</label>
-                            <input type="number" id="productPrice" class="form-input" placeholder="Ej: 2500">
-                        </div>
-                        
-                        <div class="image-upload-container">
-                            <label class="form-label">Imagen del Producto</label>
-                            <div class="image-preview" id="productImagePreview" onclick="document.getElementById('productImageUpload').click()">
-                                <div class="image-preview-placeholder">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Haz clic para subir una imagen</p>
-                                </div>
-                            </div>
-                            <input type="file" id="productImageUpload" accept="image/*" style="display: none;" onchange="previewProductImage(event)">
-                            <button class="upload-btn" onclick="document.getElementById('productImageUpload').click()">
-                                <i class="fas fa-upload"></i> Seleccionar Imagen
-                            </button>
-                        </div>
-                        
-                        <button class="btn btn-primary" onclick="addProduct()">
-                            <i class="fas fa-plus"></i> Agregar Producto
-                        </button>
-                    </div>
-                    
-                    <div class="product-list" id="productList">
-                        <!-- Los productos se cargarán aquí dinámicamente -->
-                    </div>
-                </div>
-
                 <h3 style="font-weight: 600; color: var(--text-dark); margin-bottom: 16px;">
                     <i class="fas fa-lightbulb"></i> Consejos para Aumentar Visibilidad
                 </h3>
@@ -1190,63 +982,6 @@
                             <div class="tip-description">La velocidad genera confianza</div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pantalla de Perfil de Comprador -->
-    <div id="perfilCompradorScreen" class="main-screen">
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <h2><i class="fas fa-user"></i> Mi Perfil</h2>
-                <button class="btn-exit" onclick="showScreen('welcome')">
-                    <i class="fas fa-sign-out-alt"></i> Salir
-                </button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="card">
-                <h2 style="margin-bottom: 24px; text-align: center;">Mi Perfil de Comprador</h2>
-                
-                <div class="profile-info">
-                    <div class="info-card">
-                        <div class="info-label">Nombre</div>
-                        <div class="info-value" id="profileName">-</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label">Teléfono</div>
-                        <div class="info-value" id="profilePhone">-</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label">Dirección</div>
-                        <div class="info-value" id="profileAddress">-</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label">Intereses</div>
-                        <div class="info-value" id="profileInterests">-</div>
-                    </div>
-                </div>
-                
-                <h3 style="font-weight: 600; color: var(--text-dark); margin-bottom: 16px;">
-                    <i class="fas fa-history"></i> Historial de Búsquedas
-                </h3>
-                
-                <div id="searchHistory">
-                    <!-- El historial de búsquedas se cargará aquí -->
-                </div>
-                
-                <div class="form-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen('comprador')">
-                        <i class="fas fa-arrow-left"></i> Volver a Búsqueda
-                    </button>
-                    <button class="btn btn-primary" onclick="editarPerfil()">
-                        <i class="fas fa-edit"></i> Editar Perfil
-                    </button>
                 </div>
             </div>
         </div>
@@ -1374,7 +1109,7 @@
         }
 
         // Datos de ejemplo mejorados con imágenes reales y dueños
-        let vendedores = [
+        const vendedores = [
             {
                 id: 1,
                 nombre: "Completos Don Juan",
@@ -1385,7 +1120,7 @@
                 distancia: 150,
                 activo: true,
                 imagen: "completo-700x433.png",
-                dueno: "Juan Pérez"
+                dueno: "Juan Pérez" // NUEVO: Información del dueño
             },
             {
                 id: 2,
@@ -1397,7 +1132,7 @@
                 distancia: 280,
                 activo: true,
                 imagen: "artesanias.png",
-                dueno: "María González"
+                dueno: "María González" // NUEVO: Información del dueño
             },
             {
                 id: 3,
@@ -1409,7 +1144,7 @@
                 distancia: 420,
                 activo: true,
                 imagen: "verduras.png",
-                dueno: "Carlos López"
+                dueno: "Carlos López" // NUEVO: Información del dueño
             },
             {
                 id: 4,
@@ -1421,260 +1156,87 @@
                 distancia: 350,
                 activo: false,
                 imagen: "ropa.png",
-                dueno: "Ana Martínez"
+                dueno: "Ana Martínez" // NUEVO: Información del dueño
+            },
+            {
+                id: 5,
+                nombre: "Empanadas Caseras",
+                categoria: "comida",
+                productos: ["Empanadas", "Sopaipillas", "Café"],
+                horario: "09:00 - 13:00",
+                telefono: "+56956789012",
+                distancia: 220,
+                activo: true,
+                imagen: "empanada-carne.png",
+                dueno: "Roberto Silva" // NUEVO: Información del dueño
+            },
+            {
+                id: 6,
+                nombre: "Jugos Naturales Frutal",
+                categoria: "alimentos",
+                productos: ["Jugos Naturales", "Batidos", "Ensaladas de Fruta"],
+                horario: "07:00 - 12:00",
+                telefono: "+56967890123",
+                distancia: 180,
+                activo: true,
+                imagen: "frutas.png",
+                dueno: "Laura Rodríguez" // NUEVO: Información del dueño
             }
         ];
 
-        // NUEVO: Datos para productos de vendedores
-        let productosVendedor = [];
-
-        // NUEVO: Datos para compradores registrados
-        let compradores = [];
-
         let currentCategory = 'todos';
         let currentRadius = 500;
-        let searchTerm = '';
-
-        // NUEVO: Función para registrar vendedor de forma rápida
-        function registrarVendedorRapido() {
-            // Crear un vendedor por defecto
-            const nuevoVendedor = {
-                id: Date.now(), // ID único basado en timestamp
-                nombre: "Mi Negocio Local",
-                categoria: "comida",
-                productos: ["Producto 1", "Producto 2"],
-                horario: "09:00 - 18:00",
-                telefono: "+56900000000",
-                distancia: 200,
-                activo: true,
-                imagen: "Mi Negocio.png",
-                dueno: "Dueño del Negocio"
-            };
-            
-            // Agregar a la lista de vendedores
-            vendedores.push(nuevoVendedor);
-            
-            // Mostrar mensaje de éxito
-            alert("¡Registro exitoso como vendedor!\n\nAhora puedes personalizar tu negocio en el panel de vendedor.");
-            
-            // Ir a la pantalla de vendedor
-            showScreen('vendedor');
-        }
-
-        // NUEVO: Función para registrar comprador
-        function registrarComprador() {
-            const nombre = document.getElementById('nombreComprador').value;
-            const telefono = document.getElementById('telefonoComprador').value;
-            const direccion = document.getElementById('direccionComprador').value;
-            const interesesSelect = document.getElementById('interesesComprador');
-            const intereses = Array.from(interesesSelect.selectedOptions).map(option => option.value);
-
-            if (!nombre || !telefono) {
-                alert('Por favor completa los campos obligatorios (Nombre y Teléfono)');
-                return;
-            }
-
-            // Crear objeto comprador
-            const comprador = {
-                id: Date.now(),
-                nombre: nombre,
-                telefono: telefono,
-                direccion: direccion || 'No especificada',
-                intereses: intereses.length > 0 ? intereses : ['Sin intereses específicos'],
-                fechaRegistro: new Date().toLocaleDateString()
-            };
-
-            // Guardar en el array de compradores
-            compradores.push(comprador);
-            
-            // Guardar en localStorage para persistencia
-            localStorage.setItem('compradores', JSON.stringify(compradores));
-            
-            // Mostrar mensaje de éxito
-            alert(`¡Registro exitoso como comprador!\n\nNombre: ${nombre}\nTeléfono: ${telefono}`);
-            
-            // Limpiar formulario
-            document.getElementById('nombreComprador').value = '';
-            document.getElementById('telefonoComprador').value = '';
-            document.getElementById('direccionComprador').value = '';
-            interesesSelect.selectedIndex = -1;
-            
-            // Mostrar perfil del comprador
-            mostrarPerfilComprador(comprador);
-        }
-
-        // NUEVO: Función para mostrar el perfil del comprador
-        function mostrarPerfilComprador(comprador) {
-            document.getElementById('profileName').textContent = comprador.nombre;
-            document.getElementById('profilePhone').textContent = comprador.telefono;
-            document.getElementById('profileAddress').textContent = comprador.direccion;
-            document.getElementById('profileInterests').textContent = comprador.intereses.join(', ');
-            
-            showScreen('perfilComprador');
-        }
-
-        // NUEVO: Función para cargar el perfil del comprador desde localStorage
-        function cargarPerfilComprador() {
-            const compradoresGuardados = localStorage.getItem('compradores');
-            if (compradoresGuardados) {
-                compradores = JSON.parse(compradoresGuardados);
-                if (compradores.length > 0) {
-                    // Mostrar el perfil del último comprador registrado
-                    mostrarPerfilComprador(compradores[compradores.length - 1]);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // NUEVO: Función para editar perfil de comprador
-        function editarPerfil() {
-            // En una implementación real, aquí se abriría un formulario de edición
-            alert('Funcionalidad de edición de perfil en desarrollo');
-        }
-
-        // NUEVO: Función para previsualizar imagen de producto
-        function previewProductImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('productImagePreview');
-            
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    preview.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    preview.appendChild(img);
-                };
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        // NUEVO: Función para agregar producto
-        function addProduct() {
-            const name = document.getElementById('productName').value;
-            const description = document.getElementById('productDescription').value;
-            const price = document.getElementById('productPrice').value;
-            const imageInput = document.getElementById('productImageUpload');
-            
-            if (!name || !description || !price) {
-                alert('Por favor completa todos los campos del producto');
-                return;
-            }
-            
-            let imageUrl = '';
-            if (imageInput.files && imageInput.files[0]) {
-                // En una implementación real, aquí se subiría la imagen a un servidor
-                // Por ahora, usaremos un placeholder
-                imageUrl = URL.createObjectURL(imageInput.files[0]);
-            } else {
-                imageUrl = 'placeholder-product.png';
-            }
-            
-            const product = {
-                id: Date.now(),
-                name: name,
-                description: description,
-                price: price,
-                image: imageUrl
-            };
-            
-            productosVendedor.push(product);
-            renderProductList();
-            
-            // Limpiar formulario
-            document.getElementById('productName').value = '';
-            document.getElementById('productDescription').value = '';
-            document.getElementById('productPrice').value = '';
-            document.getElementById('productImagePreview').innerHTML = `
-                <div class="image-preview-placeholder">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Haz clic para subir una imagen</p>
-                </div>
-            `;
-            document.getElementById('productImageUpload').value = '';
-            
-            alert('Producto agregado exitosamente');
-        }
-
-        // NUEVO: Función para renderizar la lista de productos
-        function renderProductList() {
-            const productList = document.getElementById('productList');
-            
-            if (productosVendedor.length === 0) {
-                productList.innerHTML = `
-                    <div style="text-align: center; padding: 20px; color: var(--text-light);">
-                        <i class="fas fa-box-open" style="font-size: 48px; margin-bottom: 12px;"></i>
-                        <p>No hay productos agregados aún</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            productList.innerHTML = productosVendedor.map(product => `
-                <div class="product-item">
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-details">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-description">${product.description}</div>
-                        <div style="font-weight: 600; color: var(--primary); margin-top: 4px;">$${product.price}</div>
-                    </div>
-                    <div class="product-actions">
-                        <button class="action-btn edit-btn" onclick="editProduct(${product.id})">
-                            <i class="fas fa-edit"></i> Editar
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">
-                            <i class="fas fa-trash"></i> Eliminar
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // NUEVO: Función para editar producto
-        function editProduct(id) {
-            // En una implementación real, aquí se abriría un formulario de edición
-            alert(`Funcionalidad de edición para producto ID: ${id} en desarrollo`);
-        }
-
-        // NUEVO: Función para eliminar producto
-        function deleteProduct(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-                productosVendedor = productosVendedor.filter(product => product.id !== id);
-                renderProductList();
-            }
-        }
+        let searchTerm = ''; // NUEVO: Variable para almacenar término de búsqueda
 
         function showScreen(screen) {
             // Ocultar todas las pantallas
             document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('registroCompradorScreen').style.display = 'none';
+            document.getElementById('registroScreen').style.display = 'none';
             document.getElementById('compradorScreen').classList.remove('active');
             document.getElementById('vendedorScreen').classList.remove('active');
-            document.getElementById('perfilCompradorScreen').classList.remove('active');
 
             // Mostrar la pantalla seleccionada
             if (screen === 'welcome') {
                 document.getElementById('welcomeScreen').style.display = 'flex';
-            } else if (screen === 'registroComprador') {
-                document.getElementById('registroCompradorScreen').style.display = 'block';
+            } else if (screen === 'registro') {
+                document.getElementById('registroScreen').style.display = 'block';
             } else if (screen === 'comprador') {
                 document.getElementById('compradorScreen').classList.add('active');
                 renderVendors();
             } else if (screen === 'vendedor') {
                 document.getElementById('vendedorScreen').classList.add('active');
-                renderProductList();
-            } else if (screen === 'perfilComprador') {
-                // Intentar cargar perfil existente, si no mostrar formulario de registro
-                if (!cargarPerfilComprador()) {
-                    showScreen('registroComprador');
-                }
             }
         }
 
-        // Función para filtrar por término de búsqueda
+        // Mostrar/ocultar campos de vendedor en registro
+        document.getElementById('tipoUsuario').addEventListener('change', function() {
+            const vendedorFields = document.getElementById('vendedorFields');
+            vendedorFields.style.display = this.value === 'vendedor' ? 'block' : 'none';
+        });
+
+        function registrarUsuario() {
+            const tipo = document.getElementById('tipoUsuario').value;
+            const nombre = document.getElementById('nombreUsuario').value;
+            const telefono = document.getElementById('telefonoUsuario').value;
+
+            if (!tipo || !nombre || !telefono) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            alert(`¡Registro exitoso como ${tipo}!\n\nNombre: ${nombre}\nTeléfono: ${telefono}`);
+            
+            // Limpiar formulario
+            document.getElementById('tipoUsuario').value = '';
+            document.getElementById('nombreUsuario').value = '';
+            document.getElementById('telefonoUsuario').value = '';
+            document.getElementById('descripcionProductos').value = '';
+            document.getElementById('horarioAtencion').value = '';
+            
+            showScreen(tipo);
+        }
+
+        // NUEVO: Función para filtrar por término de búsqueda
         function filterVendors() {
             searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             renderVendors();
@@ -1721,14 +1283,14 @@
         function renderVendors() {
             const grid = document.getElementById('vendorsGrid');
             
-            // Filtrar por categoría, radio y término de búsqueda
+            // NUEVO: Filtrar por categoría, radio y término de búsqueda
             const filtered = vendedores.filter(v => 
                 (currentCategory === 'todos' || v.categoria === currentCategory) &&
                 v.distancia <= currentRadius &&
                 (searchTerm === '' || 
                  v.nombre.toLowerCase().includes(searchTerm) ||
                  v.productos.some(producto => producto.toLowerCase().includes(searchTerm)) ||
-                 v.dueno.toLowerCase().includes(searchTerm))
+                 v.dueno.toLowerCase().includes(searchTerm)) // NUEVO: Filtrar por dueño
             );
 
             document.getElementById('vendorCount').textContent = filtered.length;
@@ -1782,6 +1344,7 @@
                             <i class="fas fa-shopping-bag"></i>
                             <span>${v.productos.join(', ')}</span>
                         </div>
+                        <!-- NUEVO: Mostrar información del dueño -->
                         <div class="info-row">
                             <i class="fas fa-user"></i>
                             <span>Dueño: ${v.dueno}</span>
@@ -1805,12 +1368,6 @@
         window.onload = function() {
             initRays();
             renderVendors();
-            
-            // Intentar cargar compradores desde localStorage
-            const compradoresGuardados = localStorage.getItem('compradores');
-            if (compradoresGuardados) {
-                compradores = JSON.parse(compradoresGuardados);
-            }
         };
     </script>
 </body>
