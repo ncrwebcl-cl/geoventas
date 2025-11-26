@@ -736,6 +736,48 @@
             transform: translateY(-50%);
             color: var(--text-light);
         }
+
+        /* NUEVO: Estilos para la imagen del logo en el footer */
+        .footer-logo {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto 8px;
+            display: block;
+        }
+
+        /* NUEVO: Estilos para la subida de imágenes */
+        .image-upload-container {
+            border: 2px dashed #e0e0e0;
+            border-radius: var(--radius-small);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 16px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .image-upload-container:hover {
+            border-color: var(--primary);
+        }
+
+        .image-upload-container.dragover {
+            border-color: var(--primary);
+            background: rgba(39, 174, 96, 0.05);
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 12px;
+            border-radius: var(--radius-small);
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
@@ -769,11 +811,12 @@
         </div>
     </div>
 
-    <!-- Footer principal -->
+    <!-- Footer principal MODIFICADO -->
     <div class="main-footer">
-        <img src="GEOVENTAS.png" alt="GEOVENTAS" style="height: 40px; margin-bottom: 8px;">
-        <p>Desarrollado por: Norbey Cuervo Ramirez y Petrona Calani</p> 
+        <img src="GEOVENTAS.png" alt="Geo Ventas" class="footer-logo">
+        <p>Desarrollado por: Norbey Cuervo Ramirez y Petrona Calani</p>
     </div>
+
     <!-- Pantalla de Registro -->
     <div id="registroScreen" style="display: none;">
         <div class="container">
@@ -800,6 +843,20 @@
                 </div>
 
                 <div id="vendedorFields" style="display: none;">
+                    <!-- NUEVO: Campo para subir imagen del negocio -->
+                    <div class="form-group">
+                        <label class="form-label">Imagen del Negocio</label>
+                        <div class="image-upload-container" id="imageUploadContainer" onclick="document.getElementById('imagenNegocio').click()">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p>Haz clic o arrastra una imagen aquí</p>
+                            <p style="font-size: 12px; color: var(--text-light);">Formatos: JPG, PNG, GIF (Máx. 2MB)</p>
+                            <img id="imagePreview" class="image-preview" alt="Vista previa">
+                        </div>
+                        <input type="file" id="imagenNegocio" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                    </div>
+
                     <div class="form-group">
                         <label class="form-label">Descripción de Productos</label>
                         <textarea id="descripcionProductos" class="form-textarea" placeholder="Ej: Vendo completos, hot dogs y bebidas"></textarea>
@@ -808,6 +865,17 @@
                     <div class="form-group">
                         <label class="form-label">Horario de Atención</label>
                         <input type="text" id="horarioAtencion" class="form-input" placeholder="Ej: 11:00 - 15:00">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoría</label>
+                        <select id="categoriaNegocio" class="form-select">
+                            <option value="">Seleccionar...</option>
+                            <option value="comida">Comida</option>
+                            <option value="artesanias">Artesanías</option>
+                            <option value="alimentos">Frutas/Verduras</option>
+                            <option value="ropa">Ropa</option>
+                        </select>
                     </div>
                 </div>
 
@@ -1187,6 +1255,81 @@
         let currentRadius = 500;
         let searchTerm = ''; // NUEVO: Variable para almacenar término de búsqueda
 
+        // NUEVO: Función para previsualizar imagen seleccionada
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const container = document.getElementById('imageUploadContainer');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Validar tipo de archivo
+                if (!file.type.match('image.*')) {
+                    alert('Por favor selecciona un archivo de imagen válido (JPG, PNG, GIF)');
+                    return;
+                }
+                
+                // Validar tamaño (máximo 2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('La imagen es demasiado grande. El tamaño máximo permitido es 2MB.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    container.querySelector('p').textContent = 'Imagen seleccionada: ' + file.name;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // NUEVO: Funcionalidad de arrastrar y soltar
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('imageUploadContainer');
+            
+            // Prevenir el comportamiento por defecto para arrastrar
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                container.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            // Resaltar el área de drop
+            ['dragenter', 'dragover'].forEach(eventName => {
+                container.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                container.addEventListener(eventName, unhighlight, false);
+            });
+            
+            // Manejar el drop
+            container.addEventListener('drop', handleDrop, false);
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            function highlight() {
+                container.classList.add('dragover');
+            }
+            
+            function unhighlight() {
+                container.classList.remove('dragover');
+            }
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                document.getElementById('imagenNegocio').files = files;
+                previewImage(document.getElementById('imagenNegocio'));
+            }
+        });
+
         function showScreen(screen) {
             // Ocultar todas las pantallas
             document.getElementById('welcomeScreen').style.display = 'none';
@@ -1213,6 +1356,22 @@
             vendedorFields.style.display = this.value === 'vendedor' ? 'block' : 'none';
         });
 
+        // NUEVO: Función para guardar datos en la base de datos
+        function guardarEnBaseDeDatos(datos) {
+            // Aquí iría el código para conectar con InfinityFree
+            // Por ahora, simulamos una llamada AJAX
+            
+            // En un entorno real, usaríamos fetch o XMLHttpRequest para enviar los datos al servidor
+            console.log('Datos a guardar en la base de datos:', datos);
+            
+            // Simulamos una respuesta exitosa
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({ success: true, message: 'Usuario registrado correctamente' });
+                }, 1000);
+            });
+        }
+
         function registrarUsuario() {
             const tipo = document.getElementById('tipoUsuario').value;
             const nombre = document.getElementById('nombreUsuario').value;
@@ -1223,16 +1382,53 @@
                 return;
             }
 
-            alert(`¡Registro exitoso como ${tipo}!\n\nNombre: ${nombre}\nTeléfono: ${telefono}`);
-            
-            // Limpiar formulario
-            document.getElementById('tipoUsuario').value = '';
-            document.getElementById('nombreUsuario').value = '';
-            document.getElementById('telefonoUsuario').value = '';
-            document.getElementById('descripcionProductos').value = '';
-            document.getElementById('horarioAtencion').value = '';
-            
-            showScreen(tipo);
+            // Preparar datos para enviar a la base de datos
+            const datosUsuario = {
+                tipo: tipo,
+                nombre: nombre,
+                telefono: telefono
+            };
+
+            // Si es vendedor, agregar campos adicionales
+            if (tipo === 'vendedor') {
+                datosUsuario.descripcion = document.getElementById('descripcionProductos').value;
+                datosUsuario.horario = document.getElementById('horarioAtencion').value;
+                datosUsuario.categoria = document.getElementById('categoriaNegocio').value;
+                
+                // Manejar la imagen si se seleccionó una
+                const imagenInput = document.getElementById('imagenNegocio');
+                if (imagenInput.files && imagenInput.files[0]) {
+                    datosUsuario.imagen = imagenInput.files[0].name; // Solo guardamos el nombre
+                    // En un entorno real, subiríamos el archivo al servidor
+                }
+            }
+
+            // Guardar en la base de datos
+            guardarEnBaseDeDatos(datosUsuario)
+                .then(response => {
+                    if (response.success) {
+                        alert(`¡Registro exitoso como ${tipo}!\n\nNombre: ${nombre}\nTeléfono: ${telefono}`);
+                        
+                        // Limpiar formulario
+                        document.getElementById('tipoUsuario').value = '';
+                        document.getElementById('nombreUsuario').value = '';
+                        document.getElementById('telefonoUsuario').value = '';
+                        document.getElementById('descripcionProductos').value = '';
+                        document.getElementById('horarioAtencion').value = '';
+                        document.getElementById('categoriaNegocio').value = '';
+                        document.getElementById('imagenNegocio').value = '';
+                        document.getElementById('imagePreview').style.display = 'none';
+                        document.getElementById('imageUploadContainer').querySelector('p').textContent = 'Haz clic o arrastra una imagen aquí';
+                        
+                        showScreen(tipo);
+                    } else {
+                        alert('Error al registrar usuario. Inténtalo de nuevo.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al registrar usuario. Inténtalo de nuevo.');
+                });
         }
 
         // NUEVO: Función para filtrar por término de búsqueda
