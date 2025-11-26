@@ -112,9 +112,9 @@
         }
 
         .subtitle {
-            color: var(--text-dark); /* Cambiado para mejor visibilidad */
+            color: var(--text-dark);
             font-size: 16px;
-            font-weight: 500; /* Añadido para mejor legibilidad */
+            font-weight: 500;
         }
 
         .btn {
@@ -218,10 +218,10 @@
             background: rgba(255,255,255,0.3);
         }
 
-        /* MODIFICADO: Filtros más compactos y transparentes */
+        /* MODIFICADO: Filtros más compactos, transparentes y con menos espacio */
         .filters {
-            background: rgba(255, 255, 255, 0.85); /* Más transparente */
-            padding: 12px 16px; /* Reducido el padding */
+            background: rgba(255, 255, 255, 0.7); /* Más transparente */
+            padding: 8px 16px; /* Reducido aún más el padding */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             position: sticky;
             top: 68px;
@@ -231,10 +231,10 @@
 
         .category-buttons {
             display: flex;
-            gap: 6px; /* Reducido el espacio entre botones */
+            gap: 6px;
             overflow-x: auto;
-            padding: 6px 0; /* Reducido el padding */
-            margin-bottom: 12px; /* Reducido el margen inferior */
+            padding: 4px 0; /* Reducido aún más el padding */
+            margin-bottom: 8px; /* Reducido el margen inferior */
             scrollbar-width: none;
         }
 
@@ -243,7 +243,7 @@
         }
 
         .category-btn {
-            padding: 8px 12px; /* Reducido el padding */
+            padding: 6px 10px; /* Reducido aún más el padding */
             border: none;
             border-radius: 20px;
             background: var(--bg-light);
@@ -255,8 +255,8 @@
             flex-shrink: 0;
             display: flex;
             align-items: center;
-            gap: 6px; /* Reducido el espacio entre ícono y texto */
-            font-size: 14px; /* Texto más pequeño */
+            gap: 6px;
+            font-size: 13px; /* Texto aún más pequeño */
         }
 
         .category-btn.active {
@@ -266,8 +266,8 @@
         }
 
         .category-btn img {
-            width: 18px; /* Imágenes más pequeñas */
-            height: 18px;
+            width: 16px; /* Imágenes aún más pequeñas */
+            height: 16px;
             object-fit: cover;
             border-radius: 4px;
         }
@@ -275,7 +275,8 @@
         .radius-control {
             display: flex;
             align-items: center;
-            gap: 10px; /* Reducido el espacio */
+            gap: 8px; /* Reducido aún más el espacio */
+            margin-top: 6px; /* Añadido margen superior para separar de los botones */
         }
 
         .radius-control input {
@@ -290,8 +291,8 @@
 
         .radius-control input::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 18px; /* Control deslizante más pequeño */
-            height: 18px;
+            width: 16px; /* Control deslizante aún más pequeño */
+            height: 16px;
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
@@ -301,14 +302,15 @@
         .radius-value {
             font-weight: 600;
             color: var(--primary);
-            min-width: 50px; /* Reducido el ancho mínimo */
-            font-size: 13px; /* Texto más pequeño */
+            min-width: 45px; /* Reducido aún más el ancho mínimo */
+            font-size: 12px; /* Texto aún más pequeño */
         }
 
         .vendors-list {
             padding: 16px;
             max-width: 100%;
             margin: 0 auto;
+            padding-bottom: 80px; /* Añadido padding inferior para evitar solapamiento con footer */
         }
 
         .section-title {
@@ -617,19 +619,19 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.6); /* Más transparente */
-            backdrop-filter: blur(5px); /* Reducir el desenfoque */
-            padding: 8px 16px; /* Reducir padding vertical */
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 6px 16px; /* Reducido aún más el padding vertical */
             text-align: center;
             color: var(--text-medium);
-            font-size: 12px; /* Reducir tamaño de fuente */
+            font-size: 11px; /* Reducido aún más el tamaño de fuente */
             z-index: 5;
-            box-shadow: 0 -1px 5px rgba(0,0,0,0.05); /* Sombra más sutil */
+            box-shadow: 0 -1px 5px rgba(0,0,0,0.05);
             border-top: 1px solid rgba(0,0,0,0.03);
         }
 
         .main-footer p {
-            margin: 2px 0; /* Reducir margen entre párrafos */
+            margin: 1px 0; /* Reducido aún más el margen entre párrafos */
         }
 
         .footer-highlight {
@@ -712,18 +714,18 @@
             height: 100%;
         }
 
-        /* NUEVO: Estilos para la barra de búsqueda */
+        /* MODIFICADO: Estilos para la barra de búsqueda - más compacta */
         .search-container {
-            margin-bottom: 12px; /* Reducido el margen inferior */
+            margin-bottom: 8px; /* Reducido aún más el margen inferior */
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            padding: 10px 16px 10px 44px; /* Reducido el padding vertical */
+            padding: 8px 16px 8px 44px; /* Reducido aún más el padding vertical */
             border: 2px solid #e0e0e0;
             border-radius: var(--radius-small);
-            font-size: 16px;
+            font-size: 14px; /* Texto más pequeño */
             transition: var(--transition);
             background: white;
         }
@@ -740,13 +742,14 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-light);
+            font-size: 14px; /* Ícono más pequeño */
         }
 
         /* MODIFICADO: Estilos para la imagen del logo en el footer - más pequeña */
         .footer-logo {
-            max-width: 120px; /* Reducir tamaño */
+            max-width: 100px; /* Reducido aún más el tamaño */
             height: auto;
-            margin: 0 auto 4px; /* Reducir margen inferior */
+            margin: 0 auto 2px; /* Reducido aún más el margen inferior */
             display: block;
         }
 
@@ -788,9 +791,20 @@
         .developers-text {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 11px; /* Reducido para coincidir con el footer */
             color: var(--primary-dark);
             letter-spacing: 0.5px;
+        }
+
+        /* MODIFICADO: Estilos para el título de filtros */
+        .filters-title {
+            font-weight: 600;
+            color: var(--text-medium);
+            font-size: 14px; /* Texto más pequeño */
+            margin-bottom: 8px; /* Reducido el margen inferior */
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
     </style>
 </head>
@@ -918,10 +932,8 @@
 
         <div class="filters">
             <div class="container">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                    <span style="font-weight: 600; color: var(--text-medium);">
-                        <i class="fas fa-filter"></i> Filtros
-                    </span>
+                <div class="filters-title">
+                    <i class="fas fa-filter"></i> Filtros
                 </div>
                 
                 <!-- Barra de búsqueda -->
@@ -953,7 +965,7 @@
                 </div>
 
                 <div class="radius-control">
-                    <label style="font-size: 14px; font-weight: 600; color: var(--text-medium);">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-medium);">
                         <i class="fas fa-ruler"></i> Radio:
                     </label>
                     <input type="range" id="radiusSlider" min="100" max="1000" step="100" value="500" oninput="updateRadius(this.value)">
@@ -1201,7 +1213,7 @@
                 distancia: 150,
                 activo: true,
                 imagen: "completo-700x433.png",
-                dueno: "Juan Pérez" // NUEVO: Información del dueño
+                dueno: "Juan Pérez"
             },
             {
                 id: 2,
@@ -1213,7 +1225,7 @@
                 distancia: 280,
                 activo: true,
                 imagen: "artesanias.png",
-                dueno: "María González" // NUEVO: Información del dueño
+                dueno: "María González"
             },
             {
                 id: 3,
@@ -1225,7 +1237,7 @@
                 distancia: 420,
                 activo: true,
                 imagen: "verduras.png",
-                dueno: "Carlos López" // NUEVO: Información del dueño
+                dueno: "Carlos López"
             },
             {
                 id: 4,
@@ -1237,7 +1249,7 @@
                 distancia: 350,
                 activo: false,
                 imagen: "ropa.png",
-                dueno: "Ana Martínez" // NUEVO: Información del dueño
+                dueno: "Ana Martínez"
             },
             {
                 id: 5,
@@ -1249,7 +1261,7 @@
                 distancia: 220,
                 activo: true,
                 imagen: "empanada-carne.png",
-                dueno: "Roberto Silva" // NUEVO: Información del dueño
+                dueno: "Roberto Silva"
             },
             {
                 id: 6,
@@ -1261,15 +1273,15 @@
                 distancia: 180,
                 activo: true,
                 imagen: "frutas.png",
-                dueno: "Laura Rodríguez" // NUEVO: Información del dueño
+                dueno: "Laura Rodríguez"
             }
         ];
 
         let currentCategory = 'todos';
         let currentRadius = 500;
-        let searchTerm = ''; // NUEVO: Variable para almacenar término de búsqueda
+        let searchTerm = '';
 
-        // NUEVO: Función para previsualizar imagen seleccionada
+        // Función para previsualizar imagen seleccionada
         function previewImage(input) {
             const preview = document.getElementById('imagePreview');
             const container = document.getElementById('imageUploadContainer');
@@ -1301,7 +1313,7 @@
             }
         }
 
-        // NUEVO: Funcionalidad de arrastrar y soltar
+        // Funcionalidad de arrastrar y soltar
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('imageUploadContainer');
             
@@ -1370,7 +1382,7 @@
             vendedorFields.style.display = this.value === 'vendedor' ? 'block' : 'none';
         });
 
-        // NUEVO: Función para guardar datos en la base de datos
+        // Función para guardar datos en la base de datos
         function guardarEnBaseDeDatos(datos) {
             // Aquí iría el código para conectar con InfinityFree
             // Por ahora, simulamos una llamada AJAX
@@ -1445,7 +1457,7 @@
                 });
         }
 
-        // NUEVO: Función para filtrar por término de búsqueda
+        // Función para filtrar por término de búsqueda
         function filterVendors() {
             searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             renderVendors();
@@ -1492,14 +1504,14 @@
         function renderVendors() {
             const grid = document.getElementById('vendorsGrid');
             
-            // NUEVO: Filtrar por categoría, radio y término de búsqueda
+            // Filtrar por categoría, radio y término de búsqueda
             const filtered = vendedores.filter(v => 
                 (currentCategory === 'todos' || v.categoria === currentCategory) &&
                 v.distancia <= currentRadius &&
                 (searchTerm === '' || 
                  v.nombre.toLowerCase().includes(searchTerm) ||
                  v.productos.some(producto => producto.toLowerCase().includes(searchTerm)) ||
-                 v.dueno.toLowerCase().includes(searchTerm)) // NUEVO: Filtrar por dueño
+                 v.dueno.toLowerCase().includes(searchTerm))
             );
 
             document.getElementById('vendorCount').textContent = filtered.length;
@@ -1553,7 +1565,7 @@
                             <i class="fas fa-shopping-bag"></i>
                             <span>${v.productos.join(', ')}</span>
                         </div>
-                        <!-- NUEVO: Mostrar información del dueño -->
+                        <!-- Mostrar información del dueño -->
                         <div class="info-row">
                             <i class="fas fa-user"></i>
                             <span>Dueño: ${v.dueno}</span>
@@ -1581,3 +1593,4 @@
     </script>
 </body>
 </html>
+
