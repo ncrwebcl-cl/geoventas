@@ -606,25 +606,25 @@
             pointer-events: none;
         }
 
-        /* Estilos para el footer principal */
+        /* MODIFICADO: Estilos para el footer principal - más pequeño y transparente */
         .main-footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 16px;
+            background: rgba(255, 255, 255, 0.6); /* Más transparente */
+            backdrop-filter: blur(5px); /* Reducir el desenfoque */
+            padding: 8px 16px; /* Reducir padding vertical */
             text-align: center;
             color: var(--text-medium);
-            font-size: 14px;
+            font-size: 12px; /* Reducir tamaño de fuente */
             z-index: 5;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            border-top: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 -1px 5px rgba(0,0,0,0.05); /* Sombra más sutil */
+            border-top: 1px solid rgba(0,0,0,0.03);
         }
 
         .main-footer p {
-            margin: 4px 0;
+            margin: 2px 0; /* Reducir margen entre párrafos */
         }
 
         .footer-highlight {
@@ -737,11 +737,11 @@
             color: var(--text-light);
         }
 
-        /* NUEVO: Estilos para la imagen del logo en el footer */
+        /* MODIFICADO: Estilos para la imagen del logo en el footer - más pequeña */
         .footer-logo {
-            max-width: 200px;
+            max-width: 120px; /* Reducir tamaño */
             height: auto;
-            margin: 0 auto 8px;
+            margin: 0 auto 4px; /* Reducir margen inferior */
             display: block;
         }
 
@@ -811,7 +811,7 @@
         </div>
     </div>
 
-    <!-- Footer principal MODIFICADO -->
+    <!-- Footer principal MODIFICADO - más pequeño y transparente -->
     <div class="main-footer">
         <img src="GEOVENTAS.png" alt="Geo Ventas" class="footer-logo">
         <p>Desarrollado por: Norbey Cuervo Ramirez y Petrona Calani</p>
