@@ -706,6 +706,36 @@
             justify-content: center;
             height: 100%;
         }
+
+        /* NUEVO: Estilos para la barra de búsqueda */
+        .search-container {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius-small);
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
     </style>
 </head>
 <body>
@@ -813,6 +843,12 @@
                     </span>
                 </div>
                 
+                <!-- NUEVO: Barra de búsqueda -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre, producto o dueño..." onkeyup="filterVendors()">
+                </div>
+                
                 <div class="category-buttons">
                     <button class="category-btn active" onclick="filterCategory('todos')">
                                         Todos
@@ -873,8 +909,9 @@
                 <h2 style="margin-bottom: 24px; text-align: center;">Mi Negocio</h2>
                 
                 <div style="margin-bottom: 32px;">
+                    <!-- MODIFICACIÓN: Cambiar imagen a "Mi Negocio.png" -->
                     <div class="vendor-image">
-                        <img src="artesanias.png" alt="Mi Negocio">
+                        <img src="Mi Negocio.png" alt="Mi Negocio">
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
@@ -1071,7 +1108,7 @@
             window.addEventListener('resize', resizeCanvas);
         }
 
-        // Datos de ejemplo mejorados con imágenes reales
+        // Datos de ejemplo mejorados con imágenes reales y dueños
         const vendedores = [
             {
                 id: 1,
@@ -1082,7 +1119,8 @@
                 telefono: "+56912345678",
                 distancia: 150,
                 activo: true,
-                imagen: "completo-700x433.png"
+                imagen: "completo-700x433.png",
+                dueno: "Juan Pérez" // NUEVO: Información del dueño
             },
             {
                 id: 2,
@@ -1093,7 +1131,8 @@
                 telefono: "+56923456789",
                 distancia: 280,
                 activo: true,
-                imagen: "artesanias.png"
+                imagen: "artesanias.png",
+                dueno: "María González" // NUEVO: Información del dueño
             },
             {
                 id: 3,
@@ -1104,7 +1143,8 @@
                 telefono: "+56934567890",
                 distancia: 420,
                 activo: true,
-                imagen: "verduras.png"
+                imagen: "verduras.png",
+                dueno: "Carlos López" // NUEVO: Información del dueño
             },
             {
                 id: 4,
@@ -1115,7 +1155,8 @@
                 telefono: "+56945678901",
                 distancia: 350,
                 activo: false,
-                imagen: "ropa.png"
+                imagen: "ropa.png",
+                dueno: "Ana Martínez" // NUEVO: Información del dueño
             },
             {
                 id: 5,
@@ -1126,7 +1167,8 @@
                 telefono: "+56956789012",
                 distancia: 220,
                 activo: true,
-                imagen: "empanada-carne.png"
+                imagen: "empanada-carne.png",
+                dueno: "Roberto Silva" // NUEVO: Información del dueño
             },
             {
                 id: 6,
@@ -1137,12 +1179,14 @@
                 telefono: "+56967890123",
                 distancia: 180,
                 activo: true,
-                imagen: "frutas.png"
+                imagen: "frutas.png",
+                dueno: "Laura Rodríguez" // NUEVO: Información del dueño
             }
         ];
 
         let currentCategory = 'todos';
         let currentRadius = 500;
+        let searchTerm = ''; // NUEVO: Variable para almacenar término de búsqueda
 
         function showScreen(screen) {
             // Ocultar todas las pantallas
@@ -1192,6 +1236,12 @@
             showScreen(tipo);
         }
 
+        // NUEVO: Función para filtrar por término de búsqueda
+        function filterVendors() {
+            searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            renderVendors();
+        }
+
         function filterCategory(category) {
             currentCategory = category;
             
@@ -1232,9 +1282,15 @@
 
         function renderVendors() {
             const grid = document.getElementById('vendorsGrid');
+            
+            // NUEVO: Filtrar por categoría, radio y término de búsqueda
             const filtered = vendedores.filter(v => 
                 (currentCategory === 'todos' || v.categoria === currentCategory) &&
-                v.distancia <= currentRadius
+                v.distancia <= currentRadius &&
+                (searchTerm === '' || 
+                 v.nombre.toLowerCase().includes(searchTerm) ||
+                 v.productos.some(producto => producto.toLowerCase().includes(searchTerm)) ||
+                 v.dueno.toLowerCase().includes(searchTerm)) // NUEVO: Filtrar por dueño
             );
 
             document.getElementById('vendorCount').textContent = filtered.length;
@@ -1245,8 +1301,12 @@
                         <div class="empty-icon">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h3 style="color: var(--text-medium); font-size: 18px; margin-bottom: 8px;">No hay negocios en esta categoría</h3>
-                        <p style="color: var(--text-light); font-size: 14px;">Intenta ampliar el radio de búsqueda</p>
+                        <h3 style="color: var(--text-medium); font-size: 18px; margin-bottom: 8px;">
+                            ${searchTerm ? 'No hay resultados para tu búsqueda' : 'No hay negocios en esta categoría'}
+                        </h3>
+                        <p style="color: var(--text-light); font-size: 14px;">
+                            ${searchTerm ? 'Intenta con otros términos de búsqueda' : 'Intenta ampliar el radio de búsqueda'}
+                        </p>
                     </div>
                 `;
                 return;
@@ -1283,6 +1343,11 @@
                         <div class="info-row">
                             <i class="fas fa-shopping-bag"></i>
                             <span>${v.productos.join(', ')}</span>
+                        </div>
+                        <!-- NUEVO: Mostrar información del dueño -->
+                        <div class="info-row">
+                            <i class="fas fa-user"></i>
+                            <span>Dueño: ${v.dueno}</span>
                         </div>
                     </div>
                     
